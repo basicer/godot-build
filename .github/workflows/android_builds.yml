@@ -30,13 +30,13 @@ jobs:
             cache-name: android-template-arm32
             target: template_release
             tests: false
-            sconsflags: arch=arm32
+            sconsflags: arch=arm32 production=yes
 
           - name: Template arm64 (target=template_release, arch=arm64)
             cache-name: android-template-arm64
             target: template_release
             tests: false
-            sconsflags: arch=arm64
+            sconsflags: arch=arm64 production=yes
 
     steps:
       - uses: actions/checkout@v4
