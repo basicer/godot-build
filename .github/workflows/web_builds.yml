@@ -42,6 +42,17 @@ jobs:
           repository: godotengine/godot
           submodules: recursive
 
+      - uses: actions/checkout@v4
+        with:
+          path: patch
+          sparse-checkout: |
+            patch.py
+          sparse-checkout-cone-mode: false
+
+      - name: Apply Patches
+        run: |
+          python patch/patch.py
+
       - name: Set up Emscripten latest
         uses: mymindstorm/setup-emsdk@v14
         with:
