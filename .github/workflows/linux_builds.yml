@@ -23,12 +23,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - name: Editor w/ Mono (target=editor)
+          - name: Editor (target=editor)
             cache-name: linux-editor-mono
             target: editor
             sconsflags: production=yes
             bin: "./bin/godot.linuxbsd.editor.x86_64"
-            build-mono: true
+            build-mono: false
             tests: false # Disabled due freeze caused by mix Mono build and CI
             doc-test: true
             proj-conv: true
