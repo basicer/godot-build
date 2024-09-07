@@ -33,6 +33,7 @@ jobs:
             doc-test: true
             proj-conv: true
             api-compat: true
+            api-dump: true
             artifact: true
 
           - name: Template (target=template_release)
