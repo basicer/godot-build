@@ -51,15 +51,30 @@ jobs:
     needs: static-checks
     uses: ./.github/workflows/web_builds.yml
 
-  # Third stage: Run auxiliary tests using build artifacts from previous jobs.
-
-  # Can be turned off for PRs that intentionally break compat with godot-cpp,
-  # until both the upstream PR and the matching godot-cpp changes are merged.
-  godot-cpp-test:
+  release:
     if: ${{ vars.DISABLE_GODOT_CI == '' }}
-    name: 🪲 Godot CPP
-    # This can be changed to depend on another platform, if we decide to use it for
-    # godot-cpp instead. Make sure to move the .github/actions/godot-api-dump step
-    # appropriately.
-    needs: linux-build
-    uses: ./.github/workflows/godot_cpp_test.yml
+    name: Cut release
+    runs-on: ubuntu-latest
+    needs: [web-build, windows-build, linux-build, macos-build, ios-build, android-build]
+    steps:
+      - name: Nuke previous release
+        uses: dev-drprasad/delete-tag-and-release@v1.0.1
+        with:
+          delete_release: true
+          tag_name: latest
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: build
+
+      - name: Create release
+        uses: ncipollo/release-action@v1
+        with:
+          name: Latest build
+          tag: latest
+          commit: master
+          body: Latest Build
+          artifacts: build/*
+          prerelease: true
