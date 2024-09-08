@@ -2,13 +2,20 @@ import sys
 import urllib.request
 from subprocess import Popen, PIPE, STDOUT
 
-PRS_TO_ADD = [ 91263, 95788, 91884 ]
+PRS_TO_ADD = [ 91263, 95788, 91884, 'basicer/2' ]
 
 print("Patching!")
 print("Python version: ", sys.version)
 
 for pr in PRS_TO_ADD:
-    url = "https://github.com/godotengine/godot/pull/" + str(pr) + ".patch"
+    pr = str(pr)
+    org = "godotengine"
+    parts = pr.split("/")
+    if len(parts) == 2:
+       org = parts[0]
+       pr = parts[1]
+
+    url = "https://github.com/" + org + "/godot/pull/" + str(pr) + ".patch"
     print(url)
     contents = urllib.request.urlopen(url).read()
     sys.stdout.write(contents.decode('utf-8'))
