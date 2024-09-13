@@ -2,7 +2,12 @@ import sys
 import urllib.request
 from subprocess import Popen, PIPE, STDOUT
 
-PRS_TO_ADD = [ 91263, 95788, 91884, 'basicer/2' ]
+PRS_TO_ADD = [
+    91263,
+    95788,
+    91884,
+    96897, # Resource Preview request_draw_and_wait
+]
 
 print("Patching!")
 print("Python version: ", sys.version)
