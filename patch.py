@@ -24,7 +24,10 @@ for pr in PRS_TO_ADD:
     url = "https://github.com/" + org + "/godot/pull/" + str(pr) + ".patch"
     print(url)
     contents = urllib.request.urlopen(url).read()
-    sys.stdout.write(contents.decode('utf-8'))
     p = Popen(['git', 'am'], stdout=PIPE, stdin=PIPE, stderr=STDOUT)
     out = p.communicate(input=contents)[0]
     print(out.decode('utf-8'))
+    if p.returncode != 0:
+       sys.exit(1)
+
+print("Jobs done")
