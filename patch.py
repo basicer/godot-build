@@ -7,6 +7,7 @@ PRS_TO_ADD = [
     95788,
     91884,
     96897, # Resource Preview request_draw_and_wait
+    96904, # Fix import deadlock
 ]
 
 print("Patching!")
