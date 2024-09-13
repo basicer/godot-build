@@ -1,7 +1,7 @@
 import sys
 import os
 import urllib.request
-from subprocess import Popen, PIPE, STDOUT
+from subprocess import check_output, Popen, PIPE, STDOUT
 
 PRS_TO_ADD = [
     91263,
@@ -14,11 +14,18 @@ PRS_TO_ADD = [
 print("Patching!")
 print("Python version: ", sys.version)
 
+ident = None
+try:
+    ident = check_output("git config --get user.email".split(" "))
+except:
+    pass
+
+if not ident or len(ident) < 5:
+	print(check_output("git config --global user.email patch@basicer.com".split(" ")))
+	print(check_output("git config --global user.name patch".split(" ")))
+
+
 my_env = os.environ.copy()
-my_env["GIT_AUTHOR_NAME"] = "Patch"
-my_env["GIT_AUTHOR_EMAIL"] = "patch@basicer.com"
-my_env["GIT_COMITTER_NAME"] = "Patch"
-my_env["GIT_COMITTER_EMAIL"] = "patch@basicer.com"
 
 for pr in PRS_TO_ADD:
     pr = str(pr)
