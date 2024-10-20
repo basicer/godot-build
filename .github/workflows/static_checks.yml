@@ -17,6 +17,17 @@ jobs:
           repository: godotengine/godot
           fetch-depth: 2
 
+      - uses: actions/checkout@v4
+        with:
+          path: patch
+          sparse-checkout: |
+            patch.py
+          sparse-checkout-cone-mode: false
+
+      - name: Apply Patches
+        run: |
+          python patch/patch.py --push
+
       - name: Install APT dependencies
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
