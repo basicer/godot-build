@@ -53,6 +53,6 @@ for pr in PRS_TO_ADD:
        sys.exit(1)
 
 if args.push:
-    print(check_output("git push -f origin HEAD:patched".split(" ")))
+    print(check_output("git push -f git@github.com:basicer/godot HEAD:patched".split(" ")))
 
 print("Jobs done")
