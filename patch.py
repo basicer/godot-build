@@ -12,6 +12,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument('-p', '--push', action='store_true')
 
 PRS_TO_ADD = [
+    99895, # Godot-Jolt
     91884, # Specify key when loading pack
     91263, # QOI Import
     95788, # WASM Interperter
