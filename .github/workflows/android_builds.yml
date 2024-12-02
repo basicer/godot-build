@@ -24,19 +24,19 @@ jobs:
             cache-name: android-editor
             target: editor
             tests: false
-            sconsflags: arch=arm64 production=yes
+            sconsflags: arch=arm64 production=yes swappy=yes
 
           - name: Template arm32 (target=template_release, arch=arm32)
             cache-name: android-template-arm32
             target: template_release
             tests: false
-            sconsflags: arch=arm32 production=yes
+            sconsflags: arch=arm32 production=yes swappy=yes
 
           - name: Template arm64 (target=template_release, arch=arm64)
             cache-name: android-template-arm64
             target: template_release
             tests: false
-            sconsflags: arch=arm64 production=yes
+            sconsflags: arch=arm64 production=yes swappy=yes
 
     steps:
       - uses: actions/checkout@v4
