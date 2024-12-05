@@ -1,0 +1,8 @@
+{
+    "mirrors": [
+        {
+            "name": "GitHub Releases",
+            "url": "https://github.com/basicer/godot-builds/releases/download/latest/export_templates.tpz"
+        }
+    ]
+}

@@ -10,9 +10,9 @@ parser = argparse.ArgumentParser(
 )
 
 parser.add_argument('-p', '--push', action='store_true')
+parser.add_argument('--no-patches', action='store_true', help='Dont download and apply patches')
 
 PRS_TO_ADD = [
-    99895, # Godot-Jolt
     91884, # Specify key when loading pack
     91263, # QOI Import
     95788, # WASM Interperter
@@ -36,24 +36,51 @@ args = parser.parse_args()
 
 my_env = os.environ.copy()
 
-for pr in PRS_TO_ADD:
-    pr = str(pr)
-    org = "godotengine"
-    parts = pr.split("/")
-    if len(parts) == 2:
-       org = parts[0]
-       pr = parts[1]
+if not args.no_patches:
+	for pr in PRS_TO_ADD:
+	    pr = str(pr)
+	    org = "godotengine"
+	    parts = pr.split("/")
+	    if len(parts) == 2:
+	       org = parts[0]
+	       pr = parts[1]
 
-    url = "https://github.com/" + org + "/godot/pull/" + str(pr) + ".patch"
-    print(f"Fetching {url} for patch.")
-    contents = urllib.request.urlopen(url).read()
-    p = Popen(['git', 'am'], stdout=PIPE, stdin=PIPE, stderr=STDOUT, env=my_env)
-    out = p.communicate(input=contents)[0]
-    print(out.decode('utf-8'))
-    if p.returncode != 0:
-       sys.exit(1)
+	    url = "https://github.com/" + org + "/godot/pull/" + str(pr) + ".patch"
+	    print(f"Fetching {url} for patch.")
+	    contents = urllib.request.urlopen(url).read()
+	    p = Popen(['git', 'am'], stdout=PIPE, stdin=PIPE, stderr=STDOUT, env=my_env)
+	    out = p.communicate(input=contents)[0]
+	    print(out.decode('utf-8'))
+	    if p.returncode != 0:
+	       sys.exit(1)
 
 if args.push:
     print(check_output("git push -f git@github.com:basicer/godot HEAD:patched".split(" ")))
+
+cwd = check_output(["git","rev-parse","--show-toplevel"]).decode("ascii").strip()
+
+def modify_lines_in_file(file, modify):
+	with open(file, mode='r+') as h:
+		h.seek(0)
+		lines = [modify(x) for x in h.readlines()]
+		result = ''.join(lines)
+		h.seek(0)
+		h.write(result)
+		h.truncate()
+
+def modify_mirror(x: str):
+	x = x.replace('"https://godotengine.org/mirrorlist/" + current_version + ".json"', '"https://raw.githubusercontent.com/basicer/godot-build/refs/heads/main/mirrors.json"')
+	return x
+
+modify_lines_in_file(f'{cwd}/editor/export/export_template_manager.cpp', modify_mirror)
+
+def modify_version(x: str):
+	[key,value] = x.split(" = ")
+	if key == "status":
+		x = 'status = "basicer"\n'
+	return x
+
+modify_lines_in_file(f'{cwd}/version.py', modify_version)
+
 
 print("Jobs done")
