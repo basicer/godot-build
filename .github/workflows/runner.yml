@@ -68,8 +68,8 @@ jobs:
         with:
           path: build
           merge-multiple: true
-      - name: Display structure of downloaded files
-        run: chmod +x build/godot.linuxbsd.editor.x86_64 && ./build/godot.linuxbsd.editor.x86_64 > ./build/version.txt
+      - name: Get Version
+        run: chmod +x build/godot.linuxbsd.editor.x86_64 && ./build/godot.linuxbsd.editor.x86_64 --version > ./build/version.txt
       - name: Display structure of downloaded files
         run: ls -R build
       - name: Create release
