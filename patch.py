@@ -12,7 +12,8 @@ parser = argparse.ArgumentParser(
 parser.add_argument('-p', '--push', action='store_true')
 parser.add_argument('--no-patches', action='store_true', help='Dont download and apply patches')
 
-print(os.environ)
+run_no = os.environ.get('GITHUB_RUN_NUMBER', 0)
+
 
 PRS_TO_ADD = [
     91884, # Specify key when loading pack
@@ -79,7 +80,7 @@ modify_lines_in_file(f'{cwd}/editor/export/export_template_manager.cpp', modify_
 def modify_version(x: str):
 	[key,value] = x.split(" = ")
 	if key == "status":
-		x = 'status = "basicer"\n'
+		x = 'status = "basicer%03d\n' % (run_no)
 	return x
 
 modify_lines_in_file(f'{cwd}/version.py', modify_version)
