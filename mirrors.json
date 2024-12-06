@@ -2,7 +2,7 @@
     "mirrors": [
         {
             "name": "GitHub Releases",
-            "url": "https://github.com/basicer/godot-builds/releases/download/latest/export_templates.tpz"
+            "url": "https://github.com/basicer/godot-build/releases/download/latest/export_templates.tpz"
         }
     ]
 }
