@@ -42,7 +42,7 @@ jobs:
             cache-name: windows-template-debug
             target: template_debug
             tests: false
-            sconsflags: production=yno
+            sconsflags: production=no
             bin: "./bin/godot.windows.template_debug.x86_64.console.exe"
 
 
