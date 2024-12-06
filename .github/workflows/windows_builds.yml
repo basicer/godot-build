@@ -42,8 +42,8 @@ jobs:
             cache-name: windows-template
             target: template_debug
             tests: false
-            sconsflags: production=yes
-            bin: "./bin/godot.windows.template_release.x86_64.console.exe"
+            sconsflags: production=yno
+            bin: "./bin/godot.windows.template_debug.x86_64.console.exe"
 
 
     steps:
