@@ -3,6 +3,8 @@ import urllib.request
 import os
 from subprocess import check_output, Popen, PIPE, STDOUT
 
+base = 'https://github.com/basicer/godot-build'
+
 TARGETS = [
 
     (None, 'android_debug.apk'),
@@ -51,11 +53,18 @@ for ((uripart, filename)) in TARGETS:
     if uripart == None:
         continue
 
-    url = f'https://github.com/basicer/godot-build/releases/download/latest/{uripart}'
+    url = f'{base}/releases/download/latest/{uripart}'
     print(url)
     contents = urllib.request.urlopen(url).read()
     with open(p, 'wb') as h:
         h.write(contents)
+
+
+version = urllib.request.urlopen(f'{base}/releases/download/latest/version.txt').read().decode('ascii').strip()
+small_version = '.'.join(version.split(".")[0:3])
+
+with open(f'templates/version.txt', 'w') as h:
+    h.write(small_version + "\n")
 
 
 check_output(['/bin/sh', '-c', 'zip -q -9 -r -D "export_templates.tpz" templates/*'])
