@@ -12,6 +12,8 @@ parser = argparse.ArgumentParser(
 parser.add_argument('-p', '--push', action='store_true')
 parser.add_argument('--no-patches', action='store_true', help='Dont download and apply patches')
 
+print(os.environ)
+
 PRS_TO_ADD = [
     91884, # Specify key when loading pack
     91263, # QOI Import
