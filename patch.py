@@ -85,5 +85,6 @@ def modify_version(x: str):
 
 modify_lines_in_file(f'{cwd}/version.py', modify_version)
 
+print(check_output('git commit -a -m Patch'.split(" ")))
 
 print("Jobs done")
