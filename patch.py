@@ -80,7 +80,7 @@ modify_lines_in_file(f'{cwd}/editor/export/export_template_manager.cpp', modify_
 def modify_version(x: str):
 	[key,value] = x.split(" = ")
 	if key == "status":
-		x = 'status = "basicer%03d\n' % (run_no)
+		x = 'status = "basicer%03d"\n' % (int(run_no))
 	return x
 
 modify_lines_in_file(f'{cwd}/version.py', modify_version)
