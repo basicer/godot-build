@@ -16,6 +16,7 @@ run_no = os.environ.get('GITHUB_RUN_NUMBER', 0)
 
 
 PRS_TO_ADD = [
+    'basicer/4', # Revert TBN fixes.
     91884, # Specify key when loading pack
     91263, # QOI Import
     95788, # WASM Interperter
