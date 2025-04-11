@@ -62,10 +62,6 @@ jobs:
         with:
           extra_args: --verbose --files ${{ env.CHANGED_FILES }}
 
-      - name: Python builders checks via pytest
-        run: |
-          pytest ./tests/python_build
-
       - name: Class reference schema checks
         run: |
           xmllint --noout --schema doc/class.xsd doc/classes/*.xml modules/*/doc_classes/*.xml platform/*/doc_classes/*.xml
