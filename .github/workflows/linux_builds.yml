@@ -25,9 +25,9 @@ jobs:
       matrix:
         include:
           - name: Editor (target=editor)
-            cache-name: linux-editor-mono
+            cache-name: linux-editor
             target: editor
-            sconsflags: production=yes
+            sconsflags: production=yes use_llvm=yes linker=lld
             bin: "./bin/godot.linuxbsd.editor.x86_64"
             build-mono: false
             tests: false # Disabled due freeze caused by mix Mono build and CI
@@ -35,14 +35,22 @@ jobs:
             proj-conv: true
             api-compat: true
             artifact: true
-            cache-limit: 2
             godot-cpp: true
 
           - name: Template (target=template_release)
             cache-name: linux-template
             target: template_release
-            sconsflags: production=yes
+            sconsflags: production=yes use_llvm=yes linker=lld
             bin: "./bin/godot.linuxbsd.template_release.x86_64"
+            build-mono: false
+            tests: true
+            artifact: true
+
+          - name: Template (target=template_debug)
+            cache-name: linux-template-debug
+            target: template_debug
+            sconsflags: production=yes use_llvm=yes linker=lld
+            bin: "./bin/godot.linuxbsd.template_debug.x86_64"
             build-mono: false
             tests: true
             artifact: true
