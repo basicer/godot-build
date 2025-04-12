@@ -35,7 +35,7 @@ jobs:
             proj-conv: true
             api-compat: true
             artifact: true
-            godot-cpp: true
+            godot-cpp: false
 
           - name: Template (target=template_release)
             cache-name: linux-template
