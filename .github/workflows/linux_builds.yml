@@ -33,8 +33,9 @@ jobs:
             doc-test: true
             proj-conv: true
             api-compat: true
-            api-dump: true
             artifact: true
+            cache-limit: 2
+            godot-cpp: true
 
           - name: Template (target=template_release)
             cache-name: linux-template
@@ -98,7 +99,7 @@ jobs:
         with:
           # Sync with Ensure*Version in SConstruct.
           python-version: 3.6
-          scons-version: 3.1.2
+          scons-version: 4.0
 
       - name: Setup GCC problem matcher
         uses: ammaraskar/gcc-problem-matcher@master
@@ -110,6 +111,14 @@ jobs:
           platform: linuxbsd
           target: ${{ matrix.target }}
           tests: ${{ matrix.tests }}
+          scons-cache-limit: ${{ matrix.cache-limit }}
+
+      - name: Compilation (godot-cpp)
+        uses: ./.github/actions/godot-cpp-build
+        if: matrix.godot-cpp
+        with:
+          bin: ${{ matrix.bin }}
+          scons-flags: target=template_debug dev_build=yes verbose=yes
 
       - name: Save Godot build cache
         uses: ./.github/actions/godot-cache-save
@@ -138,12 +147,6 @@ jobs:
         if: ${{ matrix.artifact }}
         with:
           name: ${{ matrix.cache-name }}
-
-      - name: Dump Godot API
-        uses: ./.github/actions/godot-api-dump
-        if: ${{ matrix.api-dump }}
-        with:
-          bin: ${{ matrix.bin }}
 
       - name: Unit tests
         if: ${{ matrix.tests }}
