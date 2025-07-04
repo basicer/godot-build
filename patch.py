@@ -19,7 +19,7 @@ PRS_TO_ADD = [
     91884, # Specify key when loading pack
     91263, # QOI Import
     95788, # WASM Interperter
-    96897, # Resource Preview request_draw_and_wait
+    # 96897, # Resource Preview request_draw_and_wait
     105227, # gzip compression on web export
 ]
 
