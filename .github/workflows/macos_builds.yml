@@ -23,7 +23,7 @@ jobs:
           - name: Editor (target=editor)
             cache-name: macos-editor
             target: editor
-            sconsflags: production=yes
+            scons-flags: production=yes
             tests: false
             bin: "./bin/godot.macos.editor.universal"
 
@@ -31,14 +31,14 @@ jobs:
             cache-name: macos-template
             target: template_release
             tests: false
-            sconsflags: debug_symbols=no production=yes
+            scons-flags: debug_symbols=no production=yes
             bin: "./bin/godot.macos.template_release.universal"
 
           - name: Template (target=template_debug)
             cache-name: macos-template-debug
             target: template_debug
             tests: false
-            sconsflags: production=no
+            scons-flags: production=no
             bin: "./bin/godot.macos.template_debug.universal"
 
     steps:
