@@ -28,21 +28,21 @@ jobs:
             target: editor
             tests: false
             # Skip debug symbols, they're way too big with MSVC.
-            sconsflags: debug_symbols=no vsproj=yes vsproj_gen_only=no windows_subsystem=console production=yes
+            scons-flags: debug_symbols=no vsproj=yes vsproj_gen_only=no windows_subsystem=console production=yes
             bin: "./bin/godot.windows.editor.x86_64.exe"
 
           - name: Template (target=template_release)
             cache-name: windows-template
             target: template_release
             tests: false
-            sconsflags: debug_symbols=no production=yes
+            scons-flags: debug_symbols=no production=yes
             bin: "./bin/godot.windows.template_release.x86_64.console.exe"
 
           - name: Template (target=template_debug)
             cache-name: windows-template-debug
             target: template_debug
             tests: false
-            sconsflags: production=no
+            scons-flags: production=no
             bin: "./bin/godot.windows.template_debug.x86_64.console.exe"
 
 
@@ -89,7 +89,7 @@ jobs:
       - name: Compilation
         uses: ./.github/actions/godot-build
         with:
-          sconsflags: ${{ env.SCONSFLAGS }} ${{ matrix.sconsflags }}
+          scons-flags: ${{ env.SCONSFLAGS }} ${{ matrix.scons-flags }}
           platform: windows
           target: ${{ matrix.target }}
           tests: ${{ matrix.tests }}
