@@ -43,13 +43,13 @@ jobs:
             scons-flags: production=yes
             bin: "./bin/godot.linuxbsd.template_release.x86_64"
             build-mono: false
-            tests: true
+            tests: false
             artifact: true
 
           - name: Template (target=template_debug)
             cache-name: linux-template-debug
             target: template_debug
-            scons-flags: production=yes
+            scons-flags: production=yes tests=yes
             bin: "./bin/godot.linuxbsd.template_debug.x86_64"
             build-mono: false
             tests: true
